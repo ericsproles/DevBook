@@ -1,10 +1,11 @@
-const express = require(`express`);
+import express from 'express';
+import gravatar from 'gravatar';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import passport from 'passport';
+import keys from '../../config/keys';
+
 const router = express.Router();
-const gravatar = require(`gravatar`);
-const bcrypt = require(`bcryptjs`);
-const jwt = require(`jsonwebtoken`);
-const keys = require(`../../config/keys`);
-const passport = require(`passport`);
 
 // Load Input Validation
 const validateRegisterInput = require(`../../validation/register`);
@@ -121,4 +122,4 @@ router.get(
   }
 );
 
-module.exports = router;
+export default router;
