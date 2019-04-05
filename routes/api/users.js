@@ -4,21 +4,26 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import keys from '../../config/keys';
-
-const router = express.Router();
+import validateRegisterInput from '../../validation/register';
+import validateLoginInput from '../../validation/login';
 
 // Load Input Validation
-const validateRegisterInput = require(`../../validation/register`);
-const validateLoginInput = require(`../../validation/login`);
+// const validateRegisterInput = require(`../../validation/register`);
+// const validateLoginInput = require(`../../validation/login`);
 
 // Load User model
-const User = require(`../../models/User`);
+import User from '../../models/User';
+
+const router = express.Router();
 
 // @route    GET api/users/test
 // @desc     Tests users route
 // @access   Public
 router.get(`/test`, (req, res) => res.json({ msg: `Users Works` }));
 
+// @route    POST api/users/register
+// @desc     Create a new user
+// @access   Public
 router.post(`/register`, (req, res) => {
   // TO DO
   // lowercase email before saving it to database
@@ -94,7 +99,7 @@ router.post(`/login`, (req, res) => {
         jwt.sign(
           userPayload,
           keys.secretOrKey,
-          { expiresIn: 3600 },
+          { expiresIn: 10800 },
           (err, token) => {
             res.json({
               success: true,
